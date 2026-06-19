@@ -222,7 +222,7 @@ app.get("/api/heatmap", async (req, res) => {
       {
         $match: {
           type: "click",
-          pageUrl: { $exists: true, $ne: null, $ne: "" },
+          pageUrl: { $exists: true, $nin: [null, ""] },
         },
       },
       {

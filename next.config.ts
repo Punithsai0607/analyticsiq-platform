@@ -21,12 +21,24 @@ const nextConfig: NextConfig = {
     ];
   },
   async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "http://localhost:5000/api/:path*",
-      },
-    ];
+    const isDev = process.env.NODE_ENV === "development";
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    // Use NEXT_PUBLIC_API_URL if defined, otherwise default to local Express backend in development
+    const destination = backendUrl || (isDev ? "http://localhost:5000" : null);
+
+    if (!destination) {
+      return [];
+    }
+
+    return {
+      beforeFiles: [
+        {
+          source: "/api/:path*",
+          destination: `${destination}/api/:path*`,
+        },
+      ],
+    };
   },
 };
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Flame, ChevronDown, MousePointer2, Loader2, Globe } from "lucide-react";
 import { HeatmapCanvas } from "@/components/heatmap/HeatmapCanvas";
-import { shortenUrl } from "@/lib/utils";
+import { shortenUrl, getApiUrl } from "@/lib/utils";
 
 interface ClickPoint {
   x: number;
@@ -29,7 +29,7 @@ export default function HeatmapPage() {
 
   // Load available pages on mount
   useEffect(() => {
-    fetch("/api/heatmap?pageUrl=__init__")
+    fetch(getApiUrl("/api/heatmap?pageUrl=__init__"))
       .then((r) => r.json())
       .then((d) => {
         const pages: string[] = d.availablePages ?? [];
@@ -49,7 +49,7 @@ export default function HeatmapPage() {
       if (active) setLoading(true);
     });
 
-    fetch(`/api/heatmap?pageUrl=${encodeURIComponent(selectedPage)}`)
+    fetch(getApiUrl(`/api/heatmap?pageUrl=${encodeURIComponent(selectedPage)}`))
       .then((r) => r.json())
       .then((d) => {
         if (active) {

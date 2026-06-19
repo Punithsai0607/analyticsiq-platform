@@ -13,7 +13,7 @@ import {
 import { StatsCard } from "@/components/dashboard/StatsCard";
 import { ActivityChart } from "@/components/dashboard/ActivityChart";
 import { TopPagesTable } from "@/components/dashboard/TopPagesTable";
-import { shortenUrl } from "@/lib/utils";
+import { shortenUrl, getApiUrl } from "@/lib/utils";
 
 interface AnalyticsData {
   totalSessions: number;
@@ -30,7 +30,7 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/analytics")
+    fetch(getApiUrl("/api/analytics"))
       .then((r) => r.json())
       .then((d) => { setData(d); setLoading(false); })
       .catch(() => { setError("Failed to load analytics data"); setLoading(false); });

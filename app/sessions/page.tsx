@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Users, SearchX, Loader2, SlidersHorizontal } from "lucide-react";
 import { SessionCard } from "@/components/sessions/SessionCard";
+import { getApiUrl } from "@/lib/utils";
 
 interface Session {
   sessionId: string;
@@ -25,7 +26,7 @@ export default function SessionsPage() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("/api/sessions")
+    fetch(getApiUrl("/api/sessions"))
       .then((r) => r.json())
       .then((d) => { setSessions(d.sessions ?? []); setLoading(false); })
       .catch(() => { setError("Failed to load sessions"); setLoading(false); });

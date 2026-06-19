@@ -13,7 +13,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { SessionTimeline } from "@/components/sessions/SessionTimeline";
-import { formatDuration, timeAgo, getDeviceType } from "@/lib/utils";
+import { formatDuration, timeAgo, getDeviceType, getApiUrl } from "@/lib/utils";
 import { format } from "date-fns";
 
 interface SessionSummary {
@@ -48,7 +48,7 @@ export default function SessionDetailPage() {
 
   useEffect(() => {
     if (!id) return;
-    fetch(`/api/sessions/${id}`)
+    fetch(getApiUrl(`/api/sessions/${id}`))
       .then((r) => {
         if (!r.ok) throw new Error("Session not found");
         return r.json();

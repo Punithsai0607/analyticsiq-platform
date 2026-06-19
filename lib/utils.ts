@@ -59,3 +59,14 @@ export function generateColor(index: number): string {
   ];
   return colors[index % colors.length];
 }
+
+export function getApiUrl(path: string): string {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+  if (baseUrl) {
+    const cleanBase = baseUrl.replace(/\/+$/, "");
+    const cleanPath = path.replace(/^\/+/, "");
+    return `${cleanBase}/${cleanPath}`;
+  }
+  return path;
+}
+

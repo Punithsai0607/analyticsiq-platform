@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
       {
         $match: {
           type: "click",
-          pageUrl: { $exists: true, $ne: null, $ne: "" },
+          pageUrl: { $exists: true, $nin: [null, ""] },
         },
       },
       {

@@ -1,7 +1,10 @@
 (function () {
   "use strict";
 
-  var API_ENDPOINT = "/api/events";
+  // Dynamically resolve the API endpoint from the host this script was loaded from
+  var scriptSrc = document.currentScript ? document.currentScript.src : "";
+  var apiHost = scriptSrc ? new URL(scriptSrc).origin : "";
+  var API_ENDPOINT = (apiHost || window.location.origin) + "/api/events";
   var SESSION_KEY = "ag_session_id";
 
   function generateId() {
